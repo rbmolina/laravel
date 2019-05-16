@@ -1,0 +1,56 @@
+<?php $__env->startSection('content'); ?>
+
+	<div id="admin">
+		<h1>Categories Admin Panel</h1><hr>
+
+		<p>Here you can view, delete and create new catogories</p>
+
+		<h2>Categories</h2><hr>
+
+		<ul>
+			<?php foreach($categories as $category): ?>
+				<li>
+					<?php echo $category->name; ?> - 
+					<?php echo Form::open(array('url'=>'admin/categories/destroy','class'=>'form-inline')); ?>	
+					<?php echo Form::hidden('id',$category->id); ?>
+
+					<?php echo Form::submit('delete'); ?>
+
+					<?php echo Form::close(); ?>
+
+				</li>	
+
+
+			<?php endforeach; ?>	
+		</ul>	
+
+
+		<h2>Create New Category</h2><hr>
+		<?php if($errors->has()): ?>
+			<div id="form-errors">
+				<p>The following error have occured:</p>
+				<ul>	
+					<?php foreach($errors->all() as $error): ?>
+						<li><?php echo $error; ?> </li>
+					<?php endforeach; ?>
+				</ul>
+			</div><!--end form-errors-->
+		<?php endif; ?>	
+
+		<?php echo Form::open(array('url'=>'admin/categories/create')); ?>
+
+		<p>
+			<?php echo Form::label('name'); ?>
+
+			<?php echo Form::text('name'); ?>
+
+		</p>
+		<?php echo Form::submit('Create Category',array('class'=>'secondary-cart-btn')); ?>
+
+		<?php echo Form::close(); ?>	
+	</div><!--end of admin-->
+
+	
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.main', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
